@@ -17,34 +17,35 @@ jobs:
   cherry-pick-to-stable:
     runs-on: ubuntu-latest
     name: Cherry pick from main to stable
+
     # Only cherry pick merged PRs. Don't merge PRs marked with "no-cherry-pick" label.
     if: ${{ github.event.pull_request.merged == true && !contains(github.event.pull_request.labels.*.name, 'no-cherry-pick') }}
+
     env:
-      BRANCH_NAME: 'BRANCH_NAME'
-      COMMIT_SHA: 'COMMIT_SHA'
-      OLD_TITLE: 'OLD_TITLE'
-      OLD_PULL_REQUEST_ID: 'OLD_PULL_REQUEST_ID'
-      CHERRY_PICK_BRANCH_NAME: "cherry-pick_ ${{BRANCH_NAME}} ${{COMMIT_SHA}}"
+      CHERRY_PICK_BRANCH_NAME: "cherry-pick_${{ github.event.pull_request.ref }}_${{COMMIT_SHA}}"
+      CHERRY_PICK_PR_TITLE: "Cherry Pick: ${{ github.event.pull_request.title }}"
+      CHERRY_PICK_PR_BODY: "Cherry Pick: Original PR - ${{ github.event.pull_request.number }}"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0    
+
       - name: Verify ENV variables
         run: |
           echo "Verifying our custom ENV variables:"
-          echo " - Branch name: $BRANCH_NAME"
-          echo " - Commit sha: $COMMIT_SHA"
-          echo " - Old title: $OLD_TITLE"
-          echo " - Old PR ID: $OLD_PULL_REQUEST_ID"
           echo " - Branch name: $CHERRY_PICK_BRANCH_NAME" 
+          echo " - PR title: $CHERRY_PICK_PR_TITLE" 
+          echo " - PR body: $CHERRY_PICK_PR_BODY" 
+
       - name: Cherry pick into stable
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
         with:
           branch: stable
-          cherry-pick-branch: "cherry-pick_$BRANCH_NAME_$COMMIT_SHA"
-          title: "Cherry Pick: $OLD_TITLE"
-          body: "Cherry Pick: Original PR - #$OLD_PULL_REQUEST_ID"
+          cherry-pick-branch: ${{ CHERYY_PICK_BRANCH_NAME }}
+          title: ${{ CHERRY_PICK_PR_TITLE }}
+          body: ${{ CHERRY_PICK_PR_BODY }}
           labels: |
             cherry-pick
           reviewers: |
