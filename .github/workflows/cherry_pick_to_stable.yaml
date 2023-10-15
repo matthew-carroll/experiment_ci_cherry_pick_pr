@@ -22,7 +22,7 @@ jobs:
     if: ${{ github.event.pull_request.merged == true && !contains(github.event.pull_request.labels.*.name, 'no-cherry-pick') }}
 
     env:
-      CHERRY_PICK_BRANCH_NAME: "cherry-pick_${{ github.event.pull_request.ref }}_${{COMMIT_SHA}}"
+      CHERRY_PICK_BRANCH_NAME: "cherry-pick_${{ github.event.pull_request.ref }}_${{ github.event.pull_request.merge_commit_sha }}"
       CHERRY_PICK_PR_TITLE: "Cherry Pick: ${{ github.event.pull_request.title }}"
       CHERRY_PICK_PR_BODY: "Cherry Pick: Original PR - ${{ github.event.pull_request.number }}"
 
