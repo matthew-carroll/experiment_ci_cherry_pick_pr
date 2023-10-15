@@ -29,6 +29,7 @@ jobs:
     #
     #     someProperty: "My name is ${{ env.NAME }}"
     #
+    # GitHub pull request data: https://docs.github.com/en/webhooks/webhook-events-and-payloads#pull_request
     env:
       CHERRY_PICK_BRANCH_NAME: "cherry-pick_${{ github.event.pull_request.head.ref }}_${{ github.event.pull_request.merge_commit_sha }}"
       CHERRY_PICK_PR_TITLE: "Cherry Pick: ${{ github.event.pull_request.title }}"
@@ -58,5 +59,6 @@ jobs:
             cherry-pick
           reviewers: |
             matthew-carroll
+            "${{ gitHub.event.pull_request.user.login }}"
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
