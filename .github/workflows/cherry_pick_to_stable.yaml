@@ -30,7 +30,7 @@ jobs:
           branch: stable
           cherry-pick-branch: 'cherry-pick_${{inputs.branch}}_${commitSha}'
           title: 'Cherry Pick: ${old_title}'
-          body: 'Cherry Pick: Original PR - #${{old_pull_request_id}}'
+          body: 'Cherry Pick: Original PR - #${old_pull_request_id}'
           labels: |
             cherry-pick
           reviewers: |
