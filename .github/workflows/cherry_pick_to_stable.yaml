@@ -24,7 +24,7 @@ jobs:
       COMMIT_SHA: 'COMMIT_SHA'
       OLD_TITLE: 'OLD_TITLE'
       OLD_PULL_REQUEST_ID: 'OLD_PULL_REQUEST_ID'
-      CHERRY_PICK_BRANCH_NAME: "cherry-pick_${BRANCH_NAME}_${COMMIT_SHA}"
+      CHERRY_PICK_BRANCH_NAME: "cherry-pick_ $BRANCH_NAME $COMMIT_SHA"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
