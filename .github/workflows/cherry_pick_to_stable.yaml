@@ -24,13 +24,19 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Calculate cherry pick environment variables
+        env:
+          branch_name: 'BRANCH_NAME'
+          commit_sha: 'COMMIT_SHA'
+          old_title: 'OLD_TITLE'
+          old_pull_request_id: 'OLD_PULL_REQUEST_ID'
       - name: Cherry pick into stable
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
         with:
           branch: stable
-          cherry-pick-branch: 'cherry-pick_{inputs.branch}_{commitSha}'
-          title: 'Cherry Pick: {old_title}'
-          body: 'Cherry Pick: Original PR - #{old_pull_request_id}'
+          cherry-pick-branch: 'cherry-pick_$branch_name_$commitSha'
+          title: 'Cherry Pick: $old_title'
+          body: 'Cherry Pick: Original PR - #$old_pull_request_id'
           labels: |
             cherry-pick
           reviewers: |
