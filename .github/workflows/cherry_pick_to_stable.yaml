@@ -41,9 +41,13 @@ jobs:
 
       - name: Cherry pick into stable
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
+        env:
+          CHERRY_PICK_BRANCH_NAME: "cherry-pick_${{ github.event.pull_request.ref }}_${{ github.event.pull_request.merge_commit_sha }}"
+          CHERRY_PICK_PR_TITLE: "Cherry Pick: ${{ github.event.pull_request.title }}"
+          CHERRY_PICK_PR_BODY: "Cherry Pick: Original PR - ${{ github.event.pull_request.number }}"
         with:
           branch: stable
-          cherry-pick-branch: CHERRY_PICK_BRANCH_NAME
+          cherry-pick-branch: "$CHERRY_PICK_BRANCH_NAME"
           title: "$CHERRY_PICK_PR_TITLE"
           body: "$CHERRY_PICK_PR_BODY"
           labels: |
