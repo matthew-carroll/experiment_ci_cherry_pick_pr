@@ -37,13 +37,13 @@ jobs:
           echo "Verifying our custom ENV variables:"
           echo " - Branch name: $CHERRY_PICK_BRANCH_NAME" 
           echo " - PR title: $CHERRY_PICK_PR_TITLE" 
-          echo " - PR body: $CHERRY_PICK_PR_BODY" 
+          echo " - PR body: #$CHERRY_PICK_PR_BODY" 
 
       - name: Cherry pick into stable
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
         with:
           branch: stable
-          cherry-pick-branch: "$CHERRY_PICK_BRANCH_NAME"
+          cherry-pick-branch: CHERRY_PICK_BRANCH_NAME
           title: "$CHERRY_PICK_PR_TITLE"
           body: "$CHERRY_PICK_PR_BODY"
           labels: |
