@@ -25,6 +25,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Calculate cherry pick environment variables
+        run: echo "Calculate cherry pick environment variables"
         env:
           branch_name: 'BRANCH_NAME'
           commit_sha: 'COMMIT_SHA'
