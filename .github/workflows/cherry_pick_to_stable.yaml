@@ -20,28 +20,28 @@ jobs:
     # Only cherry pick merged PRs. Don't merge PRs marked with "no-cherry-pick" label.
     if: ${{ github.event.pull_request.merged == true && !contains(github.event.pull_request.labels.*.name, 'no-cherry-pick') }}
     env:
-      branch_name: 'BRANCH_NAME'
-      commit_sha: 'COMMIT_SHA'
-      old_title: 'OLD_TITLE'
-      old_pull_request_id: 'OLD_PULL_REQUEST_ID'
+      BRANCH_NAME: 'BRANCH_NAME'
+      COMMIT_SHA: 'COMMIT_SHA'
+      OLD_TITLE: 'OLD_TITLE'
+      OLD_PULL_REQUEST_ID: 'OLD_PULL_REQUEST_ID'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-      - name: Verify cherry pick variables
-        run: |
-          echo "Branch name: $branch_name"
-          echo "Commit sha: $commit_sha"
-          echo "Old title: $old_title"
-          echo "Old PR ID: $old_pull_request_id"    
+          fetch-depth: 0    
       - name: Cherry pick into stable
+        run: |
+          echo "Verifying our custom ENV variables:"
+          echo " - Branch name: $BRANCH_NAME"
+          echo " - Commit sha: $COMMIT_SHA"
+          echo " - Old title: $OLD_TITLE"
+          echo " - Old PR ID: $OLD_PULL_REQUEST_ID"
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
         with:
           branch: stable
-          cherry-pick-branch: "cherry-pick_${branch_name}_${commitSha}"
-          title: "Cherry Pick: ${old_title}"
-          body: "Cherry Pick: Original PR - #${old_pull_request_id}"
+          cherry-pick-branch: "cherry-pick_$BRANCH_NAME_$COMMIT_SHA"
+          title: "Cherry Pick: $OLD_TITLE"
+          body: "Cherry Pick: Original PR - #$OLD_PULL_REQUEST_ID"
           labels: |
             cherry-pick
           reviewers: |
