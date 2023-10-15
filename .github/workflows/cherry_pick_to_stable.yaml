@@ -21,6 +21,14 @@ jobs:
     # Only cherry pick merged PRs. Don't merge PRs marked with "no-cherry-pick" label.
     if: ${{ github.event.pull_request.merged == true && !contains(github.event.pull_request.labels.*.name, 'no-cherry-pick') }}
 
+    # These ENV variables can be accessed directly when they're used in shell commands, e.g.:
+    #
+    #     echo "My name is $NAME"
+    # 
+    # When referencing ENV variables in declarative YAML, they must be accessed via "env.", e.g.:
+    #
+    #     someProperty: "My name is ${{ env.NAME }}"
+    #
     env:
       CHERRY_PICK_BRANCH_NAME: "cherry-pick_${{ github.event.pull_request.ref }}_${{ github.event.pull_request.merge_commit_sha }}"
       CHERRY_PICK_PR_TITLE: "Cherry Pick: ${{ github.event.pull_request.title }}"
@@ -41,15 +49,11 @@ jobs:
 
       - name: Cherry pick into stable
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
-        env:
-          CHERRY_PICK_BRANCH_NAME: "cherry-pick_${{ github.event.pull_request.ref }}_${{ github.event.pull_request.merge_commit_sha }}"
-          CHERRY_PICK_PR_TITLE: "Cherry Pick: ${{ github.event.pull_request.title }}"
-          CHERRY_PICK_PR_BODY: "Cherry Pick: Original PR - ${{ github.event.pull_request.number }}"
         with:
           branch: stable
           cherry-pick-branch: "${{ env.CHERRY_PICK_BRANCH_NAME }}"
-          title: "$CHERRY_PICK_PR_TITLE"
-          body: "$CHERRY_PICK_PR_BODY"
+          title: "${{ env.CHERRY_PICK_PR_TITLE }}"
+          body: "${{ env.CHERRY_PICK_PR_BODY }}"
           labels: |
             cherry-pick
           reviewers: |
