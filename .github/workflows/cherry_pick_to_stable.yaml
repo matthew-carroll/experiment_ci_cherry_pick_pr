@@ -19,18 +19,16 @@ jobs:
     name: Cherry pick from main to stable
     # Only cherry pick merged PRs. Don't merge PRs marked with "no-cherry-pick" label.
     if: ${{ github.event.pull_request.merged == true && !contains(github.event.pull_request.labels.*.name, 'no-cherry-pick') }}
+    env:
+      branch_name: 'BRANCH_NAME'
+      commit_sha: 'COMMIT_SHA'
+      old_title: 'OLD_TITLE'
+      old_pull_request_id: 'OLD_PULL_REQUEST_ID'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Calculate cherry pick environment variables
-        run: echo "Calculate cherry pick environment variables"
-        env:
-          branch_name: 'BRANCH_NAME'
-          commit_sha: 'COMMIT_SHA'
-          old_title: 'OLD_TITLE'
-          old_pull_request_id: 'OLD_PULL_REQUEST_ID'
       - name: Cherry pick into stable
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
         with:
