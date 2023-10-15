@@ -47,7 +47,7 @@ jobs:
           CHERRY_PICK_PR_BODY: "Cherry Pick: Original PR - ${{ github.event.pull_request.number }}"
         with:
           branch: stable
-          cherry-pick-branch: "${{ CHERRY_PICK_BRANCH_NAME }}"
+          cherry-pick-branch: "${{ env.CHERRY_PICK_BRANCH_NAME }}"
           title: "$CHERRY_PICK_PR_TITLE"
           body: "$CHERRY_PICK_PR_BODY"
           labels: |
