@@ -43,9 +43,9 @@ jobs:
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
         with:
           branch: stable
-          cherry-pick-branch: "${{ CHERRY_PICK_BRANCH_NAME }}"
-          title: "${{ CHERRY_PICK_PR_TITLE }}"
-          body: "${{ CHERRY_PICK_PR_BODY }}"
+          cherry-pick-branch: "$CHERRY_PICK_BRANCH_NAME"
+          title: "$CHERRY_PICK_PR_TITLE"
+          body: "$CHERRY_PICK_PR_BODY"
           labels: |
             cherry-pick
           reviewers: |
