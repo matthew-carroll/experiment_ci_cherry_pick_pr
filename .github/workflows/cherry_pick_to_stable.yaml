@@ -24,7 +24,7 @@ jobs:
       COMMIT_SHA: 'COMMIT_SHA'
       OLD_TITLE: 'OLD_TITLE'
       OLD_PULL_REQUEST_ID: 'OLD_PULL_REQUEST_ID'
-      BRANCH_NAME: "cherry-pick_$BRANCH_NAME_$COMMIT_SHA"
+      CHERRY_PICK_BRANCH_NAME: "cherry-pick_$BRANCH_NAME_$COMMIT_SHA"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -37,7 +37,7 @@ jobs:
           echo " - Commit sha: $COMMIT_SHA"
           echo " - Old title: $OLD_TITLE"
           echo " - Old PR ID: $OLD_PULL_REQUEST_ID"
-          echo " - Branch name: $BRANCH_NAME" 
+          echo " - Branch name: $CHERRY_PICK_BRANCH_NAME" 
       - name: Cherry pick into stable
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
         with:
