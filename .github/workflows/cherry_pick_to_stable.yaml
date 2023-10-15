@@ -30,7 +30,7 @@ jobs:
     #     someProperty: "My name is ${{ env.NAME }}"
     #
     env:
-      CHERRY_PICK_BRANCH_NAME: "cherry-pick_${{ github.event.pull_request.ref }}_${{ github.event.pull_request.merge_commit_sha }}"
+      CHERRY_PICK_BRANCH_NAME: "cherry-pick_${{ github.event.pull_request.base.ref }}_${{ github.event.pull_request.merge_commit_sha }}"
       CHERRY_PICK_PR_TITLE: "Cherry Pick: ${{ github.event.pull_request.title }}"
       CHERRY_PICK_PR_BODY: "Cherry Pick: Original PR - #${{ github.event.pull_request.number }}"
 
